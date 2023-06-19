@@ -40,37 +40,37 @@
 }
 
 .front {
-  border: 3px solid yellow;
+  border: 5px solid yellow;
   background-color: rgba(255, 255, 0, 0.22);
   transform: translateZ(100px);
 }
 
 .left {
-  border: 3px solid red;
+  border: 5px solid red;
   background-color: rgba(255, 0, 0, 0.22);
   transform: rotateY(-90deg) translateZ(100px);
 }
 
 .right {
-  border: 3px solid green;
+  border: 5px solid green;
   background-color: rgba(0, 128, 0, 0.22);
   transform: rotateY(90deg) translateZ(100px);
 }
 
 .back {
-  border: 3px solid blue;
+  border: 5px solid blue;
   background-color: rgba(0, 0, 255, 0.22);
   transform: rotateY(-180deg) translateZ(100px);
 }
 
 .up {
-  border: 3px solid purple;
+  border: 5px solid purple;
   background-color: rgba(128, 0, 128, 0.22);
   transform: rotatex(-90deg) translateZ(100px);
 }
 
 .down {
-  border: 3px solid rgb(7, 82, 7);
+  border: 5px solid rgb(7, 82, 7);
   background-color: rgba(7, 82, 7, 0.22);
   transform: rotateX(90deg) translateZ(100px);
 }

@@ -21,16 +21,23 @@
     <label class="perspectiveLbl">Perspective
       <input id="perspectChk" type="checkbox" checked onchange=isPerspectiveActive() />
       <input id="perspect" type="range" min="180" max="1000" value="500" oninput=perspective() />
+      <span id="perspectiveValue">500</span>
     </label>
     <label class="rotationLbl">Rotation X
       <input id="rotateX" type="range" min="0" max="360" value="0" oninput=rotate() />
+      <span id="rotateXValue">0</span>
     </label>
     <label class="rotationLbl">Rotation Y
       <input id="rotateY" type="range" min="0" max="360" value="0" oninput=rotate() />
+      <span id="rotateYValue">0</span>
     </label>
     <label class="rotationLbl">Rotation Z
       <input id="rotateZ" type="range" min="0" max="360" value="0" oninput=rotate() />
+      <span id="rotateZValue">0</span>
     </label>
+  </form>
+  <form class="faceColor">
+
   </form>
   <script src="script.js"></script>
 </body>
