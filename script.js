@@ -58,8 +58,7 @@ const selectAllInputColor = () => {
 }
 
 const convertColor = (colorToConvert) => {
-  const [_, rHex, vHex, bHex] = colorToConvert.match(/#(.{2})(.{2})(.{2})/g);
-  console.log(first)
+  const [_, rHex, vHex, bHex] = colorToConvert.match(/#(.{2})(.{2})(.{2})/);
   const colorR = parseInt(rHex, 16);
   const colorV = parseInt(vHex, 16);
   const colorB = parseInt(bHex, 16);
