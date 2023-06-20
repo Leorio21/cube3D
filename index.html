@@ -9,35 +9,58 @@
 <body class="body">
   <div id="container" class="container" style="perspective: 500px;">
     <div id="cube" class="cube">
-      <div class="face front">1</div>
-      <div class="face right">3</div>
-      <div class="face left">4</div>
-      <div class="face back">6</div>
-      <div class="face up">2</div>
-      <div class="face down">5</div>
+      <div id="front" class="face front">1</div>
+      <div id="right" class="face right">3</div>
+      <div id="left" class="face left">4</div>
+      <div id="back" class="face back">6</div>
+      <div id="up" class="face up">2</div>
+      <div id="down" class="face down">5</div>
     </div>
   </div>
   <form class="ctrlButton">
-    <label class="perspectiveLbl">Perspective
-      <input id="perspectChk" type="checkbox" checked onchange=isPerspectiveActive() />
-      <input id="perspect" type="range" min="180" max="1000" value="500" oninput=perspective() />
+    <label class="perspectiveLbl">Perspective :
+      <input id="perspectChk" type="checkbox" checked onchange=perspectiveCheck() />
+      <input id="perspect" type="range" min="180" max="1000" value="500" oninput=changePerspective() />
       <span id="perspectiveValue">500</span>
     </label>
-    <label class="rotationLbl">Rotation X
-      <input id="rotateX" type="range" min="0" max="360" value="0" oninput=rotate() />
+    <h2 class="formTitle">Rotation</h2>
+    <label class="rotationLbl">X :
+      <input id="rotateX" type="range" min="0" max="360" value="0" oninput=changeRotation() />
       <span id="rotateXValue">0</span>
     </label>
-    <label class="rotationLbl">Rotation Y
-      <input id="rotateY" type="range" min="0" max="360" value="0" oninput=rotate() />
+    <label class="rotationLbl">Y :
+      <input id="rotateY" type="range" min="0" max="360" value="0" oninput=changeRotation() />
       <span id="rotateYValue">0</span>
     </label>
-    <label class="rotationLbl">Rotation Z
-      <input id="rotateZ" type="range" min="0" max="360" value="0" oninput=rotate() />
+    <label class="rotationLbl">Z :
+      <input id="rotateZ" type="range" min="0" max="360" value="0" oninput=changeRotation() />
       <span id="rotateZValue">0</span>
     </label>
   </form>
-  <form class="faceColor">
-
+  <form class="changeFaceColor">
+    <h2 class="formTitle">Couleur</h2>
+    <label class="colorLbl">1 :
+      <input id="colorPickerFront" type="color" oninput=changeColor(front) value="#FFFF00" />
+    </label>
+    <label class="colorLbl">2 :
+      <input id="colorPickerUp" type="color" oninput=changeColor(up) value="#800080" />
+    </label>
+    <label class="colorLbl">3 :
+      <input id="colorPickerRight" type="color" oninput=changeColor(right) value="#008000" />
+    </label>
+    <label class="colorLbl">4 :
+      <input id="colorPickerLeft" type="color" oninput=changeColor(left) value="#FF0000" />
+    </label>
+    <label class="colorLbl">5 :
+      <input id="colorPickerDown" type="color" oninput=changeColor(down) value="#075707" />
+    </label>
+    <label class="colorLbl">6 :
+      <input id="colorPickerBack" type="color" oninput=changeColor(back) value="#0000FF" />
+    </label>
+    <label class="colorAlphaLbl">Transparence :
+      <input id="colorAlpha" type="range" min="0" max="1" value=".6" step=".1" oninput=changeColorAlpha() />
+      <span id="colorAlphaValue">0.6</span>
+    </label>
   </form>
   <script src="script.js"></script>
 </body>
