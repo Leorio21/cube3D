@@ -1,3 +1,4 @@
+const faceId = ["front", "right", "left", "back", "up", "down"];
 let isPerspectiveActive = true;
 
 const perspectiveCheck = () => {
@@ -6,7 +7,7 @@ const perspectiveCheck = () => {
   if (isPerspectiveActive) {
     changePerspective();
   } else {
-    container.style = "";
+    container.style.perspective = "none";
   }
 }
 
@@ -18,7 +19,7 @@ const changePerspective = () => {
   perspectiveValueElement.textContent = perspectiveValue;
   if (isPerspectiveActive) {
     const container = document.getElementById("container");
-    container.style = `perspective: ${perspectiveValue}px;`;
+    container.style.perspective = `${perspectiveValue}px`;
   }
 }
 
@@ -33,32 +34,51 @@ const changeRotation = () => {
   xValueElement.textContent = degreeX;
   yValueElement.textContent = degreeY;
   zValueElement.textContent = degreeZ;
-  cube.style = `transform: rotateX(${degreeX}deg) rotateY(${degreeY}deg) rotateZ(${degreeZ}deg);`;
+  cube.style.transform = `rotateX(${degreeX}deg) rotateY(${degreeY}deg) rotateZ(${degreeZ}deg)`;
 }
 
-const changeColor = (el) => {
-  const face = document.getElementById(el.id);
-  let faceName = (el.id).split("");
-  faceName[0] = faceName[0].toUpperCase();
-  const newColor = document.getElementById("colorPicker".concat(faceName.join(""))).value;
+const textColorModification = () => {
+  const cube = document.getElementById("cube");
+  const textColor = document.getElementById("colorPickerText").value
+  cube.style.color = textColor;
+}
+
+const faceColorModification = (el) => {
+  changeFaceColor(el.id);
+}
+
+const changeFaceColor = (id) => {
+  const face = document.getElementById(id);
+  const faceName = getFaceName(id);
+  const newColor = document.getElementById("colorPicker".concat(faceName)).value;
   const [colorR, colorV, colorB] = convertColor(newColor);
-  face.style = `border: 5px solid ${newColor}; background-color: rgba(${colorR}, ${colorV}, ${colorB}, .6)`;
+  const alpha = document.getElementById("colorAlpha").value;
+  face.style.border = `5px solid ${newColor}`;
+  face.style.backgroundColor = `rgba(${colorR}, ${colorV}, ${colorB}, ${alpha})`;
+}
+
+const getFaceName = (id) => {
+  let faceName = id.split("");
+  faceName[0] = faceName[0].toUpperCase();
+
+  return faceName.join("");
 }
 
 const changeColorAlpha = () => {
-  const alpha = document.getElementById("colorAlpha").value;
-  const alphaValue = document.getElementById("colorAlphaValue");
-  alphaValue.textContent = alpha;
-  const picker = selectAllInputColor();
-  picker.forEach((el) => console.log(el));
+  majAlphaValue();
+  faceId.forEach((face) => changeFaceColor(face));
 }
 
-const selectAllInputColor = () => {
-  return document.querySelectorAll("input[type=color]");
+const majAlphaValue = () => {
+  let alpha = document.getElementById("colorAlpha").value;
+  const alphaValue = document.getElementById("colorAlphaValue");
+  alpha < 0 && (alpha = 0);
+  alpha > 1 && (alpha = 1);
+  alphaValue.textContent = alpha;
 }
 
 const convertColor = (colorToConvert) => {
-  const [_, rHex, vHex, bHex] = colorToConvert.match(/#(.{2})(.{2})(.{2})/);
+  const [_, rHex, vHex, bHex] = colorToConvert.match(/^#(.{2})(.{2})(.{2})$/);
   const colorR = parseInt(rHex, 16);
   const colorV = parseInt(vHex, 16);
   const colorB = parseInt(bHex, 16);

@@ -20,42 +20,45 @@
   <form class="ctrlButton">
     <label class="perspectiveLbl">Perspective :
       <input id="perspectChk" type="checkbox" checked onchange=perspectiveCheck() />
-      <input id="perspect" type="range" min="180" max="1000" value="500" oninput=changePerspective() />
+      <input id="perspect" type="range" min="180" max="1000" value="500" step="10" oninput=changePerspective() />
       <span id="perspectiveValue">500</span>
     </label>
     <h2 class="formTitle">Rotation</h2>
     <label class="rotationLbl">X :
-      <input id="rotateX" type="range" min="0" max="360" value="0" oninput=changeRotation() />
+      <input id="rotateX" type="range" min="-360" max="360" value="0" step="1" oninput=changeRotation() />
       <span id="rotateXValue">0</span>
     </label>
     <label class="rotationLbl">Y :
-      <input id="rotateY" type="range" min="0" max="360" value="0" oninput=changeRotation() />
+      <input id="rotateY" type="range" min="-360" max="360" value="0" step="1" oninput=changeRotation() />
       <span id="rotateYValue">0</span>
     </label>
     <label class="rotationLbl">Z :
-      <input id="rotateZ" type="range" min="0" max="360" value="0" oninput=changeRotation() />
+      <input id="rotateZ" type="range" min="-360" max="360" value="0" step="1" oninput=changeRotation() />
       <span id="rotateZValue">0</span>
     </label>
   </form>
   <form class="changeFaceColor">
     <h2 class="formTitle">Couleur</h2>
     <label class="colorLbl">1 :
-      <input id="colorPickerFront" type="color" oninput=changeColor(front) value="#FFFF00" />
+      <input id="colorPickerFront" type="color" oninput=faceColorModification(front) value="#FFFF00" />
     </label>
     <label class="colorLbl">2 :
-      <input id="colorPickerUp" type="color" oninput=changeColor(up) value="#800080" />
+      <input id="colorPickerUp" type="color" oninput=faceColorModification(up) value="#800080" />
     </label>
     <label class="colorLbl">3 :
-      <input id="colorPickerRight" type="color" oninput=changeColor(right) value="#008000" />
+      <input id="colorPickerRight" type="color" oninput=faceColorModification(right) value="#008000" />
     </label>
     <label class="colorLbl">4 :
-      <input id="colorPickerLeft" type="color" oninput=changeColor(left) value="#FF0000" />
+      <input id="colorPickerLeft" type="color" oninput=faceColorModification(left) value="#FF0000" />
     </label>
     <label class="colorLbl">5 :
-      <input id="colorPickerDown" type="color" oninput=changeColor(down) value="#075707" />
+      <input id="colorPickerDown" type="color" oninput=faceColorModification(down) value="#075707" />
     </label>
     <label class="colorLbl">6 :
-      <input id="colorPickerBack" type="color" oninput=changeColor(back) value="#0000FF" />
+      <input id="colorPickerBack" type="color" oninput=faceColorModification(back) value="#0000FF" />
+    </label>
+    <label class="colorLbl">Texte :
+      <input id="colorPickerText" type="color" oninput=textColorModification(back) value="#F0F0F0" />
     </label>
     <label class="colorAlphaLbl">Transparence :
       <input id="colorAlpha" type="range" min="0" max="1" value=".6" step=".1" oninput=changeColorAlpha() />
