@@ -85,3 +85,49 @@ const convertColor = (colorToConvert) => {
 
   return [colorR, colorV, colorB];
 }
+
+const cubeElement = document.getElementById("cube");
+let isDragging = false;
+let startingX = null;
+let startingY = null;
+let currentX = null;
+let currentY = null;
+
+cubeElement.addEventListener('mousedown', function(event) {
+  isDragging = true;
+  startingX = event.clientX;
+  startingY = event.clientY;
+});
+
+cubeElement.addEventListener('mousemove', function(event) {
+  if (!isDragging) return;
+  
+  event.preventDefault();
+  
+  currentX = event.clientX - startingX;
+  currentY = event.clientY - startingY;
+  
+  cubeElement.style.transform = 'rotateY(' + currentX + 'deg) rotateX(' + (-currentY) + 'deg)';
+});
+
+cubeElement.addEventListener('mouseup', function() {
+  isDragging = false;
+});
+
+cubeElement.addEventListener('touchstart', function(event) {
+  startingX = event.touches[0].clientX;
+  startingY = event.touches[0].clientY;
+});
+
+cubeElement.addEventListener('touchmove', function(event) {
+  event.preventDefault();
+  currentX = event.touches[0].clientX - startingX;
+  currentY = event.touches[0].clientY - startingY;
+  
+  cubeElement.style.transform = 'rotateY(' + currentX + 'deg) rotateX(' + (-currentY) + 'deg)';
+});
+
+cubeElement.addEventListener('touchend', function() {
+  startingX = null;
+  startingY = null;
+});
