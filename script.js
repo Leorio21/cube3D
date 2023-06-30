@@ -88,7 +88,7 @@ const convertColor = (colorToConvert) => {
 }
 
 
-// Mouvement du cube avec le doigt ou le curseur de la souris
+// Gestion mouvement du cube avec le doigt ou le curseur de la souris
 
 const cubeElement = document.getElementById("cube");
 let isDragging = false;
