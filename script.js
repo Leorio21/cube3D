@@ -25,16 +25,17 @@ const changePerspective = () => {
 
 const changeRotation = () => {
   const cube = document.getElementById("cube");
-  const xValueElement = document.getElementById("rotateXValue");
-  const yValueElement = document.getElementById("rotateYValue");
-  const zValueElement = document.getElementById("rotateZValue");
-  const degreeX = document.getElementById("rotateX").value;
-  const degreeY = document.getElementById("rotateY").value;
-  const degreeZ = document.getElementById("rotateZ").value;
-  xValueElement.textContent = degreeX;
-  yValueElement.textContent = degreeY;
-  zValueElement.textContent = degreeZ;
-  cube.style.transform = `rotateX(${degreeX}deg) rotateY(${degreeY}deg) rotateZ(${degreeZ}deg)`;
+  const degreeX = degreeValue("X");
+  const degreeY = degreeValue("Y");
+  cube.style.transform = `rotateY(${degreeX}deg) rotateX(${degreeY}deg)`;
+}
+
+const degreeValue = (axe) => {
+  const valueElement = document.getElementById(`rotate${axe}Value`);
+  const degree = document.getElementById(`rotate${axe}`).value;
+  valueElement.textContent = degree;
+
+  return degree;
 }
 
 const textColorModification = () => {
@@ -50,7 +51,7 @@ const faceColorModification = (el) => {
 const changeFaceColor = (id) => {
   const face = document.getElementById(id);
   const faceName = getFaceName(id);
-  const newColor = document.getElementById("colorPicker".concat(faceName)).value;
+  const newColor = document.getElementById(`colorPicker${faceName}`).value;
   const [colorR, colorV, colorB] = convertColor(newColor);
   const alpha = document.getElementById("colorAlpha").value;
   face.style.border = `5px solid ${newColor}`;
@@ -86,17 +87,39 @@ const convertColor = (colorToConvert) => {
   return [colorR, colorV, colorB];
 }
 
+
+// Mouvement du cube avec le doigt ou le curseur de la souris
+
 const cubeElement = document.getElementById("cube");
 let isDragging = false;
 let startingX = null;
 let startingY = null;
 let currentX = null;
 let currentY = null;
+let initialX = 0;
+let initialY = 0;
+
+const initializeXY = () => {
+  if (cubeElement.style.transform !== "") {
+    const [_, initY, initX] = cubeElement.style.transform.match(/^rotateY\((.+)deg\) rotateX\((.+)deg\).*$/);
+    initialY = initY;
+    initialX = initX;
+  }
+}
+
+const endCubeMove = () => {
+  isDragging = false;
+  startingX = null;
+  startingY = null;
+  initialX = 0;
+  initialY = 0;
+}
 
 cubeElement.addEventListener('mousedown', function(event) {
   isDragging = true;
   startingX = event.clientX;
   startingY = event.clientY;
+  initializeXY();
 });
 
 cubeElement.addEventListener('mousemove', function(event) {
@@ -104,30 +127,30 @@ cubeElement.addEventListener('mousemove', function(event) {
   
   event.preventDefault();
   
-  currentX = event.clientX - startingX;
-  currentY = event.clientY - startingY;
+  currentX = event.clientX - startingX + parseInt(initialY);
+  currentY = -(event.clientY - startingY) + parseInt(initialX);
   
-  cubeElement.style.transform = 'rotateY(' + currentX + 'deg) rotateX(' + (-currentY) + 'deg)';
+  cubeElement.style.transform = 'rotateY(' + currentX + 'deg) rotateX(' + currentY + 'deg)';
 });
 
 cubeElement.addEventListener('mouseup', function() {
-  isDragging = false;
+  endCubeMove();
 });
 
 cubeElement.addEventListener('touchstart', function(event) {
   startingX = event.touches[0].clientX;
   startingY = event.touches[0].clientY;
+  initializeXY();
 });
 
 cubeElement.addEventListener('touchmove', function(event) {
   event.preventDefault();
-  currentX = event.touches[0].clientX - startingX;
-  currentY = event.touches[0].clientY - startingY;
+  currentX = event.touches[0].clientX - startingX + parseInt(initialY);
+  currentY = -(event.touches[0].clientY - startingY) + parseInt(initialX);
   
-  cubeElement.style.transform = 'rotateY(' + currentX + 'deg) rotateX(' + (-currentY) + 'deg)';
+  cubeElement.style.transform = 'rotateY(' + currentX + 'deg) rotateX(' + currentY + 'deg)';
 });
 
 cubeElement.addEventListener('touchend', function() {
-  startingX = null;
-  startingY = null;
+  endCubeMove();
 });
