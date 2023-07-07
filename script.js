@@ -11,11 +11,19 @@ const perspectiveCheck = () => {
   }
 }
 
+const verifValue = (value, min, max) => {
+  if (value > max) {
+    return max
+  }
+  if (value < min) {
+    return min
+  }
+  return value
+}
+
 const changePerspective = () => {
   const perspectiveValueElement = document.getElementById("perspectiveValue");
-  const perspectiveValue = document.getElementById("perspect").value;
-  perspectiveValue > 1000 && (perspectiveValue = 1000);
-  perspectiveValue < 180 && (perspectiveValue = 180);
+  const perspectiveValue = verifValue(document.getElementById("perspect").value, 180, 1000);
   perspectiveValueElement.textContent = perspectiveValue;
   if (isPerspectiveActive) {
     const container = document.getElementById("container");
@@ -71,10 +79,8 @@ const changeColorAlpha = () => {
 }
 
 const majAlphaValue = () => {
-  let alpha = document.getElementById("colorAlpha").value;
   const alphaValue = document.getElementById("colorAlphaValue");
-  alpha < 0 && (alpha = 0);
-  alpha > 1 && (alpha = 1);
+  const alpha = verifValue(document.getElementById("colorAlpha").value, 0, 1);
   alphaValue.textContent = alpha;
 }
 
@@ -115,6 +121,13 @@ const endCubeMove = () => {
   initialY = 0;
 }
 
+const changeCubeRotation = (axeX, axeY) => {
+  currentX = axeX - startingX + parseInt(initialY);
+  currentY = -(axeY - startingY) + parseInt(initialX);
+  
+  cubeElement.style.transform = 'rotateY(' + currentX + 'deg) rotateX(' + currentY + 'deg)';
+}
+
 cubeElement.addEventListener('mousedown', function(event) {
   isDragging = true;
   startingX = event.clientX;
@@ -127,10 +140,7 @@ cubeElement.addEventListener('mousemove', function(event) {
   
   event.preventDefault();
   
-  currentX = event.clientX - startingX + parseInt(initialY);
-  currentY = -(event.clientY - startingY) + parseInt(initialX);
-  
-  cubeElement.style.transform = 'rotateY(' + currentX + 'deg) rotateX(' + currentY + 'deg)';
+  changeCubeRotation(event.clientX, event.clientY);
 });
 
 cubeElement.addEventListener('mouseup', function() {
@@ -145,10 +155,7 @@ cubeElement.addEventListener('touchstart', function(event) {
 
 cubeElement.addEventListener('touchmove', function(event) {
   event.preventDefault();
-  currentX = event.touches[0].clientX - startingX + parseInt(initialY);
-  currentY = -(event.touches[0].clientY - startingY) + parseInt(initialX);
-  
-  cubeElement.style.transform = 'rotateY(' + currentX + 'deg) rotateX(' + currentY + 'deg)';
+  changeCubeRotation(event.touches[0].clientX, event.touches[0].clientY);
 });
 
 cubeElement.addEventListener('touchend', function() {
